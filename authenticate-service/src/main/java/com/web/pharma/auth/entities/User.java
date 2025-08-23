@@ -14,8 +14,10 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
-    @SequenceGenerator(name = "users_seq_gen", sequenceName = "users_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq_gen")
+    //@SequenceGenerator(name = "users_seq_gen", sequenceName = "users_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(unique = true, nullable = false, length = 100)
@@ -35,6 +37,9 @@ public class User {
 
     @Column(name = "password_changed_at")
     private LocalDateTime passwordChangedAt = LocalDateTime.now();
+
+    @Column(name = "password_expired")
+    private boolean passwordExpired;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

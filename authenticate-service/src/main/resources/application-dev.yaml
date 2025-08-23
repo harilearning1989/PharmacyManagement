@@ -1,0 +1,25 @@
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework: ERROR
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@//127.0.0.1:31521/XEPDB1
+    username: pharmacy_mgmt
+    password: dudkrish1A
+    driver-class-name: oracle.jdbc.OracleDriver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+    show-sql: true
+
+jwt:
+  secret: AvHGRK8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadweheufHNyG
+  expiration: 3600000

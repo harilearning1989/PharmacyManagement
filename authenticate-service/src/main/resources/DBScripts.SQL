@@ -40,6 +40,11 @@ CREATE TABLE user_roles
     CONSTRAINT user_roles_pk PRIMARY KEY (user_id, role_id)
 );
 
+ALTER TABLE users ADD (
+    password_expired NUMBER(1) DEFAULT 0 CHECK (password_expired IN (0,1))
+);
+
+
 
 INSERT INTO roles (id, name)
 VALUES (roles_seq.NEXTVAL, 'ROLE_ADMIN');

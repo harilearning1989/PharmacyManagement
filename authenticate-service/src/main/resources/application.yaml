@@ -1,3 +1,17 @@
 spring:
   application:
     name: authenticate-service
+  profiles:
+    active: dev
+  main:
+    banner-mode: off
+
+
+logging:
+  file:
+    name: /Users/hariduddukunta/MyWork/Softwares/AppLogs/Pharmacy/authenticate-service.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: /Users/hariduddukunta/MyWork/Softwares/AppLogs/Pharmacy/authenticate-service-%d{yyyy-MM-dd}.log
+      max-history: 30
+      max-file-size: 10MB

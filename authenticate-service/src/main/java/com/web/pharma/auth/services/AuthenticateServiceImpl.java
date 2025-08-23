@@ -6,7 +6,7 @@ import com.web.pharma.auth.records.request.AuthRequest;
 import com.web.pharma.auth.records.request.RegisterRequest;
 import com.web.pharma.auth.repos.RoleRepository;
 import com.web.pharma.auth.repos.UserRepository;
-import com.web.pharma.auth.utils.JwtUtil;
+import com.web.pharma.auth.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,7 +22,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil;
+    private final JwtTokenUtil jwtTokenUtil;
 
     @Override
     public void registerUser(RegisterRequest request) {
@@ -78,7 +78,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         user.setLockUntil(null);
         userRepository.save(user);
 
-        return jwtUtil.generateToken(user.getUsername(),
+        return jwtTokenUtil.generateToken(user.getUsername(),
                 user.getRoles().stream().map(Role::getName).toList());
     }
 
