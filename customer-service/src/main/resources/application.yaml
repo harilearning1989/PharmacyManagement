@@ -1,6 +1,6 @@
 spring:
   application:
-    name: authenticate-service
+    name: patient-service
   profiles:
     active: dev
   main:

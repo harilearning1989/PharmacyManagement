@@ -1,9 +1,11 @@
 package com.web.pharma.auth.services;
 
+import com.web.pharma.auth.entities.ActivityLog;
 import com.web.pharma.auth.entities.Role;
 import com.web.pharma.auth.entities.User;
 import com.web.pharma.auth.records.request.AuthRequest;
 import com.web.pharma.auth.records.request.RegisterRequest;
+import com.web.pharma.auth.repos.ActivityLogRepository;
 import com.web.pharma.auth.repos.RoleRepository;
 import com.web.pharma.auth.repos.UserRepository;
 import com.web.pharma.auth.utils.JwtTokenUtil;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +29,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenUtil jwtTokenUtil;
+    private final ActivityLogRepository logRepository;
 
     @Override
     public void registerUser(RegisterRequest request) {
@@ -109,6 +114,71 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
         log.info("User '{}' authenticated successfully", request.username());
         return token;
+    }
+
+    public void logActivity(Long userId, String action){
+        ActivityLog log = new ActivityLog();
+        log.setUserId(userId);
+        log.setAction(action);
+        logRepository.save(log);
+    }
+
+    // Get profile
+    public User getUserProfile(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    // Change password
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Old password does not match");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        logActivity(user.getId(), "PASSWORD_CHANGE");
+    }
+
+    // Admin: Get all users
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Admin: Update user role
+    public void updateUserRole(Long userId, String newRoleName) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Role role = roleRepository.findByName(newRoleName)
+                .orElseThrow(() -> new RuntimeException("Role not found"));
+
+        // Replace all existing roles with the new role
+        user.setRoles(new HashSet<>(Collections.singletonList(role)));
+
+        userRepository.save(user);
+        logActivity(user.getId(), "ROLE_UPDATE");
+    }
+
+
+    // Admin: Delete user
+    public void deleteUser(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new RuntimeException("User not found");
+        }
+        userRepository.deleteById(userId);
+    }
+
+    // Admin: Get activity logs
+    public List<ActivityLog> getAllActivityLogs() {
+        return logRepository.findAll();
+    }
+
+    public List<ActivityLog> getUserActivityLogs(Long userId) {
+        return logRepository.findByUserId(userId);
     }
 
 }

@@ -23,7 +23,7 @@ public class AuthenticateApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.info("inside run before printLogs Log generation completed. Shutting down.");
-        printLogs();
+        //printLogs();
         log.info("inside run after printLogs Log generation completed. Shutting down.");
     }
 
