@@ -6,6 +6,7 @@ import com.web.pharma.auth.records.request.RegisterRequest;
 import com.web.pharma.auth.records.response.AuthResponse;
 import com.web.pharma.auth.services.AuthenticateService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("authenticate")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthRestController {
 
     private final AuthenticateService authenticateService;
@@ -21,17 +23,25 @@ public class AuthRestController {
     //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegisterRequest request) {
+        log.info("Register request received for email: {}", request.username());
+
         authenticateService.registerUser(request);
+
+        log.info("User registered successfully: {}", request.username());
         return ResponseEntity.ok("User registered successfully.");
     }
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest request) {
+        log.info("Login attempt for username: {}", request.username());
+
         String token = authenticateService.authenticate(request);
+
+        log.info("User authenticated successfully: {}", request.username());
         return ResponseEntity.ok(new AuthResponse(token));
     }
 
-   /* @PreAuthorize("isAuthenticated()")
+  /* @PreAuthorize("isAuthenticated()")
     @PostMapping("/reset-my-password")
     public ResponseEntity<?> resetOwnPassword(@RequestParam String oldPassword,
                                               @RequestParam String newPassword,
