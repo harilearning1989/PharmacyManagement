@@ -12,10 +12,15 @@ import com.web.pharma.auth.utils.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -179,6 +184,26 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
     public List<ActivityLog> getUserActivityLogs(Long userId) {
         return logRepository.findByUserId(userId);
+    }
+
+    public void loggedInUserDetails(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            Object principal = authentication.getPrincipal();
+
+            if (principal instanceof UserDetails userDetails) {
+                String username = userDetails.getUsername();
+                Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+
+                System.out.println("Logged in user: " + username);
+                System.out.println("Roles: " + authorities);
+            } else {
+                // In case of OAuth2 / JWT, principal may just be a String (username)
+                String username = principal.toString();
+                System.out.println("Logged in user: " + username);
+            }
+        }
     }
 
 }
