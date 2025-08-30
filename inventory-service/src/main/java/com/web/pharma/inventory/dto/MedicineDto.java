@@ -15,6 +15,7 @@ public record MedicineDto(
         @JsonProperty("unit_price") BigDecimal unitPrice,
         @JsonProperty("total_value") BigDecimal totalValue,
         @JsonProperty("created_by") Long createdBy,
-        @JsonProperty("updated_by") Long updatedBy
+        @JsonProperty("updated_by") Long updatedBy,
+        @JsonProperty("supplierId") Long supplierId
 ) {
 }

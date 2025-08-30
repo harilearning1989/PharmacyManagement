@@ -1,6 +1,5 @@
 package com.web.pharma.inventory.model;
 
-import com.web.pharma.inventory.dto.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,11 +10,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address extends BaseEntity {
+public class Address {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq")
-    @SequenceGenerator(name = "address_seq", sequenceName = "address_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQ_GEN")
+    @SequenceGenerator(name = "ADDRESS_SEQ_GEN", sequenceName = "ADDRESS_SEQ", allocationSize = 1)
     @Column(name = "ID", nullable = false, unique = true, updatable = false)
     private Long id;
 

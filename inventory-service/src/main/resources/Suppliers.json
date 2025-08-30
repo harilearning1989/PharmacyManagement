@@ -1,0 +1,162 @@
+[
+  {
+    "supplierId": 1001,
+    "name": "Sri Rama Pharma Distributors",
+    "email": "srirama.pharma@gmail.com",
+    "phone": "9876543210",
+    "gstin": "37ABCDE1234F1Z5",
+    "addressDto": {
+      "pinCode": "520001",
+      "state": "Andhra Pradesh",
+      "district": "Krishna",
+      "mandal": "Vijayawada (Urban)",
+      "post": "Governorpet",
+      "village": "Vijayawada",
+      "fatherName": "Raghava Rao"
+    }
+  },
+  {
+    "supplierId": 1002,
+    "name": "Andhra Medical Supplies",
+    "email": "andhramedicals@outlook.com",
+    "phone": "9876501234",
+    "gstin": "37FGHIJ5678K2Z6",
+    "addressDto": {
+      "pinCode": "522002",
+      "state": "Andhra Pradesh",
+      "district": "Guntur",
+      "mandal": "Guntur (Urban)",
+      "post": "Brodipet",
+      "village": "Guntur",
+      "fatherName": "Venkatesh"
+    }
+  },
+  {
+    "supplierId": 1003,
+    "name": "Vizag Pharma Traders",
+    "email": "vizagpharma@yahoo.com",
+    "phone": "9876512345",
+    "gstin": "37KLMNO9012P3Z7",
+    "addressDto": {
+      "pinCode": "530001",
+      "state": "Andhra Pradesh",
+      "district": "Visakhapatnam",
+      "mandal": "Visakhapatnam (Urban)",
+      "post": "Jagadamba",
+      "village": "Visakhapatnam",
+      "fatherName": "Narasimha Murthy"
+    }
+  },
+  {
+    "supplierId": 1004,
+    "name": "Tirupati Drug Distributors",
+    "email": "tirupatidrugs@gmail.com",
+    "phone": "9876523456",
+    "gstin": "37PQRST3456U4Z8",
+    "addressDto": {
+      "pinCode": "517501",
+      "state": "Andhra Pradesh",
+      "district": "Chittoor",
+      "mandal": "Tirupati (Urban)",
+      "post": "Kapilatheertham",
+      "village": "Tirupati",
+      "fatherName": "Subramanya"
+    }
+  },
+  {
+    "supplierId": 1005,
+    "name": "Kurnool Pharma Center",
+    "email": "kurnoolpharma@rediffmail.com",
+    "phone": "9876534567",
+    "gstin": "37UVWXY6789Z5Z9",
+    "addressDto": {
+      "pinCode": "518001",
+      "state": "Andhra Pradesh",
+      "district": "Kurnool",
+      "mandal": "Kurnool (Urban)",
+      "post": "Santasubba Rao Nagar",
+      "village": "Kurnool",
+      "fatherName": "Ramakrishna"
+    }
+  },
+  {
+    "supplierId": 1006,
+    "name": "Rajahmundry Pharma Depot",
+    "email": "rajahmundrydepot@gmail.com",
+    "phone": "9876545678",
+    "gstin": "37ABCDE6789Q6Z0",
+    "addressDto": {
+      "pinCode": "533101",
+      "state": "Andhra Pradesh",
+      "district": "East Godavari",
+      "mandal": "Rajahmundry (Urban)",
+      "post": "Fort Gate",
+      "village": "Rajahmundry",
+      "fatherName": "Chandrashekar"
+    }
+  },
+  {
+    "supplierId": 1007,
+    "name": "Nellore Medical Agencies",
+    "email": "nelloreagencies@gmail.com",
+    "phone": "9876556789",
+    "gstin": "37FGHIJ1122R7Z1",
+    "addressDto": {
+      "pinCode": "524001",
+      "state": "Andhra Pradesh",
+      "district": "Nellore",
+      "mandal": "Nellore (Urban)",
+      "post": "Stonehousepet",
+      "village": "Nellore",
+      "fatherName": "Krishnaiah"
+    }
+  },
+  {
+    "supplierId": 1008,
+    "name": "Ongole Pharma Suppliers",
+    "email": "ongolepharma@protonmail.com",
+    "phone": "9876567890",
+    "gstin": "37KLMNO3344S8Z2",
+    "addressDto": {
+      "pinCode": "523001",
+      "state": "Andhra Pradesh",
+      "district": "Prakasam",
+      "mandal": "Ongole (Urban)",
+      "post": "Mangalagiri Road",
+      "village": "Ongole",
+      "fatherName": "Balaji"
+    }
+  },
+  {
+    "supplierId": 1009,
+    "name": "Kadapa Pharma Solutions",
+    "email": "kadapapharma@gmail.com",
+    "phone": "9876578901",
+    "gstin": "37PQRST5566T9Z3",
+    "addressDto": {
+      "pinCode": "516001",
+      "state": "Andhra Pradesh",
+      "district": "Kadapa",
+      "mandal": "Kadapa (Urban)",
+      "post": "Devuni Kadapa",
+      "village": "Kadapa",
+      "fatherName": "Vijaya Kumar"
+    }
+  },
+  {
+    "supplierId": 1010,
+    "name": "Anantapur Drug House",
+    "email": "anantapurdrugs@medmail.com",
+    "phone": "9876589012",
+    "gstin": "37UVWXY7788U0Z4",
+    "addressDto": {
+      "pinCode": "515001",
+      "state": "Andhra Pradesh",
+      "district": "Anantapur",
+      "mandal": "Anantapur (Urban)",
+      "post": "Subash Road",
+      "village": "Anantapur",
+      "fatherName": "Srinivasulu"
+    }
+  }
+]

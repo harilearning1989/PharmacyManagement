@@ -31,7 +31,13 @@ public class SupplierMapperImpl implements SupplierMapper {
                         .build())
                 .build();
 
-        supplier.getAddress().setSupplier(supplier); // ✅ set bidirectional link
+        supplier.getAddress().setSupplier(supplier);
+
+        // set audit fields from BaseEntity
+        supplier.setCreatedBy(dto.createdBy());
+        supplier.setUpdatedBy(dto.updatedBy());
+
         return supplier;
     }
+
 }

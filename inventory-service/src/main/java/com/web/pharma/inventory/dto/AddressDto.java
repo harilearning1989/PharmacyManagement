@@ -9,5 +9,6 @@ public record AddressDto(
         String post,
         String village,
         String fatherName
-) {}
+) {
+}
 

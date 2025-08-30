@@ -1,7 +1,5 @@
 package com.web.pharma.inventory.model;
 
-
-import com.web.pharma.inventory.dto.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,4 +48,13 @@ public class Medicine extends BaseEntity {
 
     @Column(name = "total_value")
     private BigDecimal totalValue;
+
+    // Many medicines belong to one supplier (unidirectional)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(
+            name = "supplier_id",                // FK column in medicine table
+            nullable = false,
+            foreignKey = @ForeignKey(name = "fk_medicine_supplier")
+    )
+    private Supplier supplier;
 }

@@ -1,4 +1,4 @@
-package com.web.pharma.inventory.dto;
+package com.web.pharma.inventory.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
