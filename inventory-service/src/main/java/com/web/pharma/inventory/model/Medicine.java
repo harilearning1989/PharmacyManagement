@@ -1,8 +1,14 @@
 package com.web.pharma.inventory.model;
 
+
+import com.web.pharma.inventory.dto.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -10,8 +16,14 @@ import java.time.LocalDate;
 @Table(name = "medicine")
 @Getter
 @Setter
-public class Medicine {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder   // 👈 instead of @Builder
+public class Medicine extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medicine_seq")
+    @SequenceGenerator(name = "medicine_seq", sequenceName = "medicine_seq", allocationSize = 1)
     private Long id;
 
     @Column(name = "item_id", nullable = false, unique = true)

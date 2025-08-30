@@ -12,55 +12,78 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class SupplierServiceImpl implements SupplierService {
 
-    private final SupplierRepository repository;
-    private final SupplierMapper mapper;
+    private final SupplierRepository supplierRepository;
+    private final SupplierMapper supplierMapper;
 
+    @Override
     @Transactional
-    public SupplierDto create(SupplierDto dto) {
-        log.info("Creating supplier name={}", dto.name());
-        Supplier s = mapper.toEntity(dto);
-        s.setId(null);
-        var saved = repository.save(s);
+    public SupplierDto saveSupplier(SupplierDto supplierDto) {
+        log.info("Creating supplier name={}", supplierDto.name());
+        Supplier supplier = supplierMapper.toEntity(supplierDto);
+        supplier.setId(null);
+        var saved = supplierRepository.save(supplier);
         log.debug("Saved supplier id={}", saved.getId());
-        return mapper.toDto(saved);
+        return supplierMapper.toDto(saved);
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public List<SupplierDto> listAll() {
+    public List<SupplierDto> getAllSuppliers() {
         log.debug("Listing suppliers");
-        return repository.findAll().stream().map(mapper::toDto).toList();
+        return supplierRepository.findAll().stream().map(supplierMapper::toDto).toList();
     }
 
+    @Override
     @Transactional(readOnly = true)
-    public SupplierDto findById(Long id) {
+    public Optional<SupplierDto> getSupplierById(Long id) {
         log.debug("Finding supplier id={}", id);
-        return repository.findById(id).map(mapper::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + id));
+        return supplierRepository.findById(id).map(supplierMapper::toDto);
     }
 
+    @Override
     @Transactional
-    public SupplierDto update(Long id, SupplierDto dto) {
+    public SupplierDto updateSupplier(Long id, SupplierDto supplierDto) {
         log.info("Updating supplier id={}", id);
-        var existing = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + id));
-        existing.setName(dto.name());
-        existing.setPhone(dto.phone());
-        existing.setGstin(dto.gstin());
-        existing.setAddress(dto.address());
-        var saved = repository.save(existing);
+        var existing = supplierRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + id));
+        existing.setName(supplierDto.name());
+        existing.setPhone(supplierDto.phone());
+        existing.setGstin(supplierDto.gstin());
+        //existing.setAddress(supplierDto.addressDto());
+        var saved = supplierRepository.save(existing);
         log.debug("Updated supplier id={}", saved.getId());
-        return mapper.toDto(saved);
+        return supplierMapper.toDto(saved);
     }
 
-    @Transactional
-    public void delete(Long id) {
-        log.info("Deleting supplier id={}", id);
-        if (!repository.existsById(id)) throw new ResourceNotFoundException("Supplier not found: " + id);
-        repository.deleteById(id);
+    @Override
+    public SupplierDto patchSupplier(Long id, SupplierDto supplierDto) {
+        Supplier supplier = supplierRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Supplier with ID " + id + " not found"));
+
+        Supplier updatedSupplier = Supplier.builder()
+                .name(supplierDto.name() != null ? supplierDto.name() : supplier.getName())
+                .email(supplierDto.email() != null ? supplierDto.email() : supplier.getEmail())
+                .phone(supplierDto.phone() != null ? supplierDto.phone() : supplier.getPhone())
+                //.address(supplierDto.address() != null ? supplierDto.address() : supplier.getAddress())
+                .build();
+
+        Supplier savedSupplier = supplierRepository.save(updatedSupplier);
+        return supplierMapper.toDto(savedSupplier);
     }
+
+    @Override
+    @Transactional
+    public void deleteSupplier(Long id) {
+        log.info("Deleting supplier id={}", id);
+        if (!supplierRepository.existsById(id)) throw new ResourceNotFoundException("Supplier not found: " + id);
+        supplierRepository.deleteById(id);
+    }
+
 }

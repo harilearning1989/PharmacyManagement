@@ -1,18 +1,22 @@
 package com.web.pharma.inventory.services;
 
 import com.web.pharma.inventory.dto.SupplierDto;
-import jakarta.validation.Valid;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public interface SupplierService {
-    SupplierDto create(@Valid SupplierDto dto);
 
-    List<SupplierDto> listAll();
+    SupplierDto saveSupplier(SupplierDto supplier);
 
-    SupplierDto findById(Long id);
+    List<SupplierDto> getAllSuppliers();
 
-    SupplierDto update(Long id, @Valid SupplierDto dto);
+    Optional<SupplierDto> getSupplierById(Long id);
 
-    void delete(Long id);
+    SupplierDto updateSupplier(Long id, SupplierDto supplier);
+
+    SupplierDto patchSupplier(Long id, SupplierDto supplierDto);
+
+    void deleteSupplier(Long id);
 }

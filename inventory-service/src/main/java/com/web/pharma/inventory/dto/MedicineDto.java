@@ -1,21 +1,20 @@
 package com.web.pharma.inventory.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * Medicine DTO record for API.
- */
+import java.math.BigDecimal;
+
 public record MedicineDto(
-    @NotBlank String itemId,
-    @NotBlank String itemType,
-    @NotBlank String name,
-    Integer strengthMg,
-    String company,
-    LocalDate expiryDate,
-    Integer quantity,
-    BigDecimal unitPrice,
-    BigDecimal totalValue
-) {}
+        @JsonProperty("item_id") String itemId,
+        @JsonProperty("item_type") String itemType,
+        @JsonProperty("name") String name,
+        @JsonProperty("strength_mg") Integer strengthMg,
+        @JsonProperty("company") String company,
+        @JsonProperty("expiry_date") String expiryDate,
+        @JsonProperty("quantity") Integer quantity,
+        @JsonProperty("unit_price") BigDecimal unitPrice,
+        @JsonProperty("total_value") BigDecimal totalValue,
+        @JsonProperty("created_by") Long createdBy,
+        @JsonProperty("updated_by") Long updatedBy
+) {
+}
