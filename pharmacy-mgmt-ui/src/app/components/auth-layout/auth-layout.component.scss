@@ -1,0 +1,31 @@
+/* src/app/auth/auth-layout/auth-layout.component.scss */
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  min-height: 100vh;
+}
+
+.auth-visual {
+  background: url('/assets/Pharmacy.png') center/cover no-repeat;
+}
+
+.auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+@media (max-width: 992px) {
+  .auth-grid {
+    grid-template-columns: 1fr;
+  }
+  .auth-visual {
+    display: none;
+  }
+}

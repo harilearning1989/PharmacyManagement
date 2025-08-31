@@ -1,0 +1,99 @@
+<!-- src/app/auth/login/login.component.html -->
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h2 class="h4 mb-3 text-center">Welcome back</h2>
+    <p class="text-muted text-center mb-4">
+      Sign in to manage inventory, prescriptions, and billing.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <!-- Username -->
+      <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          class="form-control"
+          placeholder="Enter your username"
+          appUsernameInput
+          required
+        />
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="f.username.invalid && (f.username.touched || f.username.dirty)"
+        >
+          <span *ngIf="f.username.errors?.['required']">Username is required.</span>
+          <span *ngIf="f.username.errors?.['minlength']">Minimum 4 characters.</span>
+          <span *ngIf="f.username.errors?.['maxlength']">Maximum 20 characters.</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-group">
+          <input
+            id="password"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            class="form-control"
+            placeholder="••••••••"
+            required
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="hide = !hide"
+          >
+            {{ hide ? 'Show' : 'Hide' }}
+          </button>
+        </div>
+        <div
+          class="invalid-feedback d-block"
+          *ngIf="f.password.invalid && (f.password.touched || f.password.dirty)"
+        >
+          <span *ngIf="f.password.errors?.['required']">Password is required.</span>
+          <span *ngIf="f.password.errors?.['minlength']">Minimum 5 characters.</span>
+          <span *ngIf="f.password.errors?.['maxlength']">Maximum 20 characters.</span>
+        </div>
+      </div>
+
+      <!-- Remember + Forgot -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="rememberMe"
+            id="rememberMe"
+          />
+          <label class="form-check-label" for="rememberMe">
+            Keep me signed in
+          </label>
+        </div>
+        <a routerLink="/auth/forgot-password" class="small">Forgot password?</a>
+      </div>
+
+      <!-- Server error -->
+      <div *ngIf="serverError" class="alert alert-danger py-2">{{ serverError }}</div>
+
+      <!-- Submit -->
+      <button
+        class="btn btn-primary w-100"
+        type="submit"
+        [disabled]="form.invalid || loading"
+      >
+        <span *ngIf="!loading">Login</span>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+        <span *ngIf="loading"> Signing in…</span>
+      </button>
+    </form>
+
+    <!-- Register link -->
+    <div class="text-center mt-3">
+      <span class="text-muted">New to the system?</span>
+      <a routerLink="/auth/register" class="ms-1">Create account</a>
+    </div>
+  </div>
+</div>
