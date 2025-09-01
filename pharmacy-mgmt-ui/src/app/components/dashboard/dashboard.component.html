@@ -1,0 +1,35 @@
+<div class="container-fluid py-3">
+  <!-- Row 1: Customer, Doctor, Supplier -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <app-customer-search></app-customer-search>
+    </div>
+    <div class="col-md-4">
+      <app-doctor-search></app-doctor-search>
+    </div>
+    <div class="col-md-4">
+      <app-supplier-search></app-supplier-search>
+    </div>
+  </div>
+
+  <!-- Row 2: Medicine search + action buttons -->
+  <div class="row">
+    <div class="col-md-8">
+      <app-medicine-search></app-medicine-search>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Actions</h5>
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary">Reports</button>
+            <button class="btn btn-outline-success">Loyalty</button>
+            <button class="btn btn-outline-secondary">Add Medicine</button>
+            <button class="btn btn-outline-warning">Add Supplier</button>
+            <button class="btn btn-outline-info">Register Customer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

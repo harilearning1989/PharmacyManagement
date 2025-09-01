@@ -13,15 +13,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
 
 @RestController
-@RequestMapping("authenticate")
+@RequestMapping("auth")
 @RequiredArgsConstructor
 @Slf4j
 @Tag(name = "Authentication", description = "Endpoints for user authentication and registration")
@@ -97,7 +95,7 @@ public class AuthRestController {
     }
 
     @PutMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestBody Map<String,String> request, Principal principal){
+    public ResponseEntity<String> changePassword(@RequestBody Map<String, String> request, Principal principal) {
         authenticateService.changePassword(principal.getName(), request.get("oldPassword"), request.get("newPassword"));
         return ResponseEntity.ok("Password changed successfully");
     }

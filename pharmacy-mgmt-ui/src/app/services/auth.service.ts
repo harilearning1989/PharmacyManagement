@@ -18,8 +18,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string, remember: boolean): Observable<void> {
-    return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, { email, password }).pipe(
+  login(username: string, password: string, remember: boolean): Observable<void> {
+    return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, { username, password }).pipe(
       tap(res => this.saveSession(res, remember)),
       map(() => void 0),
     );
