@@ -1,7 +1,5 @@
-<div class="card shadow-sm h-100" style="min-height: 300px;">
+<div class="card shadow-sm h-100 border-primary" style="min-height: 300px;">
   <div class="card-body">
-    <h5 class="card-title">Medicine Search</h5>
-
     <!-- Search -->
     <form (ngSubmit)="searchMedicine()" [formGroup]="medicineForm" class="mb-3">
       <div class="input-group">
@@ -18,19 +16,19 @@
     </form>
 
     <!-- Results Table -->
-    <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+    <div class="table-responsive" style="max-height: 220px; overflow-y: auto;">
       <table class="table table-bordered table-sm align-middle text-center">
-        <thead class="table-light">
+        <thead class="sticky-top custom-header">
         <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Company</th>
-          <th>Expiry</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Created</th>
-          <th>Updated</th>
-          <th>Supplier</th>
+          <th >Name</th>
+          <th >Type</th>
+          <th >Company</th>
+          <th >Expiry</th>
+          <th >Quantity</th>
+          <th >Price</th>
+          <th >Created</th>
+          <th >Updated</th>
+          <th >Supplier</th>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +44,7 @@
           <td>{{ med.supplierId }}</td>
         </tr>
         <tr *ngIf="medicines.length === 0 && searched">
-          <td colspan="12" class="text-muted">No medicines found</td>
+          <td colspan="9" class="text-muted">No medicines found</td>
         </tr>
         </tbody>
       </table>

@@ -10,12 +10,13 @@ import {Medicine} from "../../models/medicine";
 })
 export class MedicineSearchComponent implements OnInit {
 
-  ngOnInit(): void {
-  }
-
   medicineForm: FormGroup;
   medicines: Medicine[] = [];
   searched = false;
+
+  ngOnInit(): void {
+    this.allMedicines();
+  }
 
   constructor(private fb: FormBuilder, private medicineService: MedicineService) {
     this.medicineForm = this.fb.group({
@@ -28,6 +29,19 @@ export class MedicineSearchComponent implements OnInit {
     if (!query) return;
 
     this.medicineService.searchMedicines(query).subscribe({
+      next: (res) => {
+        this.medicines = res;
+        this.searched = true;
+      },
+      error: () => {
+        this.medicines = [];
+        this.searched = true;
+      }
+    });
+  }
+
+  allMedicines() {
+    this.medicineService.allMedicines().subscribe({
       next: (res) => {
         this.medicines = res;
         this.searched = true;

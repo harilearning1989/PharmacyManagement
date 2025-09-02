@@ -1,0 +1,37 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: pharmacy-gateway
+
+  main:
+    banner-mode: off
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: authenticate-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/auth/**
+            - id: user-service
+              uri: http://localhost:9001
+              predicates:
+                - Path=/user/**
+            - id: admin-service
+              uri: http://localhost:9002
+              predicates:
+                - Path=/admin/**
+            - id: orders-composite
+              uri: http://localhost:9001
+              predicates:
+                - Path=/orders/**
+jwt:
+  secret: AvHGRK8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadweheufHNyG
+  #secret: ${SECURITY_JWT_SECRET:default_one}
+
+logging:
+  level:
+    org.springframework: info

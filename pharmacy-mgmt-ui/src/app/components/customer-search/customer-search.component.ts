@@ -27,7 +27,7 @@ export class CustomerSearchComponent implements OnInit {
     const phone = this.customerForm.get('phone')?.value;
 
     // TODO: Replace with real API
-    if (phone === '9999999999') {
+    if (phone === '9494968081') {
       this.customerForm.patchValue({
         name: 'Hari Reddy',
         dob: '1995-08-01',
