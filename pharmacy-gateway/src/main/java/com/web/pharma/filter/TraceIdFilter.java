@@ -25,7 +25,7 @@ public class TraceIdFilter implements WebFilter {
 
         // 2️⃣ Add traceId to MDC (so Logback can use %X{traceId})
         MDC.put(TRACE_ID, traceId);
-        log.info("TraceIdFilter applied, traceId={}", traceId);
+        log.info("Pharmacy Gateway TraceIdFilter applied, traceId={}", traceId);
 
 
         // 3️⃣ Mutate the request so downstream services also get traceId

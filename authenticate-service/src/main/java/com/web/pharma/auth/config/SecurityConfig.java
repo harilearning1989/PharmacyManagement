@@ -32,7 +32,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 // Use functional style to enable CORS
-                .cors(withDefaults())
+                //.cors(withDefaults())
+                .cors(AbstractHttpConfigurer::disable)   // 🚀 Disable CORS here
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth

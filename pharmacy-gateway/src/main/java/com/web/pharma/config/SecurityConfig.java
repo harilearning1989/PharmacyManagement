@@ -7,6 +7,8 @@ import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 public class SecurityConfig {
 
@@ -14,8 +16,11 @@ public class SecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
+                .cors(withDefaults())  // ✅ enable CORS support
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers("/auth/**").permitAll()
+                        .pathMatchers("/medicines/**").permitAll()
+                        //.pathMatchers("/medicines/**").hasRole("ADMIN")
                         .pathMatchers("/admin/**").hasRole("ADMIN")
                         .pathMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                         .anyExchange().authenticated()

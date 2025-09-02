@@ -1,7 +1,0 @@
-spring:
-  application:
-    name: patient-service
-  profiles:
-    active: dev
-  main:
-    banner-mode: off
