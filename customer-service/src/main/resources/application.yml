@@ -1,10 +1,15 @@
 spring:
   application:
-    name: authenticate-service
+    name: customer-service
   profiles:
     active: dev
   main:
     banner-mode: off
+
+logging:
+  level:
+    root: INFO
+    com.web.pharma.inventory: DEBUG
 
 eureka:
   client:

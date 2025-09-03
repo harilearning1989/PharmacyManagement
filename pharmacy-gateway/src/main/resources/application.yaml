@@ -15,3 +15,8 @@ jwt:
 logging:
   level:
     org.springframework: info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/   # Eureka server URL

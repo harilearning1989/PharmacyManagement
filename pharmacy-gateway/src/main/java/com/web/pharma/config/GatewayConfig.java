@@ -12,14 +12,25 @@ public class GatewayConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route("authenticate-service", r -> r.path("/auth/**")
-                        .uri("http://localhost:8082"))
+                        .uri("lb://authenticate-service"))//8082
                 .route("inventory-service", r -> r.path("/medicines/**")
-                        .uri("http://localhost:8083"))
-                .route("admin-service", r -> r.path("/admin/**")
-                        .uri("http://localhost:9002"))
-                .route("orders-composite", r -> r.path("/orders/**")
-                        .uri("http://localhost:9001"))
+                        .uri("lb://inventory-service"))//8083
+                .route("customer-service", r -> r.path("/customer/**")
+                        .uri("lb://customer-service"))//8084
+                .route("payment-service", r -> r.path("/payment/**")
+                        .uri("lb://payment-service"))
+                .route("supplier-service", r -> r.path("/supplier/**")
+                        .uri("lb://supplier-service"))
+                .route("doctor-service", r -> r.path("/doctor/**")
+                        .uri("lb://doctor-service"))
+                .route("report-service", r -> r.path("/report/**")
+                        .uri("lb://report-service"))
+                .route("support-service", r -> r.path("/support/**")
+                        .uri("lb://support-service"))
+                .route("notification-service", r -> r.path("/notification/**")
+                        .uri("lb://notification-service"))
                 .build();
     }
+
 }
 
