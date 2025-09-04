@@ -1,0 +1,162 @@
+[
+  {
+    "custId": 1,
+    "name": "Aarav Sharma",
+    "phone": "9876543210",
+    "email": "aarav.sharma@example.com",
+    "gender": "Male",
+    "dob": "16-12-2000"
+  },
+  {
+    "custId": 2,
+    "name": "Priya Verma",
+    "phone": "9123456780",
+    "email": "priya.verma@example.com",
+    "gender": "Female",
+    "dob": "05-07-1998"
+  },
+  {
+    "custId": 3,
+    "name": "Rohan Mehta",
+    "phone": "9812345678",
+    "email": "rohan.mehta@example.com",
+    "gender": "Male",
+    "dob": "21-03-1995"
+  },
+  {
+    "custId": 4,
+    "name": "Sneha Kapoor",
+    "phone": "9098765432",
+    "email": "sneha.kapoor@example.com",
+    "gender": "Female",
+    "dob": "12-11-2001"
+  },
+  {
+    "custId": 5,
+    "name": "Vikram Singh",
+    "phone": "9823456781",
+    "email": "vikram.singh@example.com",
+    "gender": "Male",
+    "dob": "30-01-1992"
+  },
+  {
+    "custId": 6,
+    "name": "Ananya Joshi",
+    "phone": "9934567812",
+    "email": "ananya.joshi@example.com",
+    "gender": "Female",
+    "dob": "14-08-1999"
+  },
+  {
+    "custId": 7,
+    "name": "Karan Malhotra",
+    "phone": "9789012345",
+    "email": "karan.malhotra@example.com",
+    "gender": "Male",
+    "dob": "25-09-1996"
+  },
+  {
+    "custId": 8,
+    "name": "Pooja Nair",
+    "phone": "9678901234",
+    "email": "pooja.nair@example.com",
+    "gender": "Female",
+    "dob": "18-02-1997"
+  },
+  {
+    "custId": 9,
+    "name": "Aditya Gupta",
+    "phone": "9567890123",
+    "email": "aditya.gupta@example.com",
+    "gender": "Male",
+    "dob": "03-04-2000"
+  },
+  {
+    "custId": 10,
+    "name": "Neha Reddy",
+    "phone": "9456789012",
+    "email": "neha.reddy@example.com",
+    "gender": "Female",
+    "dob": "27-06-1998"
+  },
+  {
+    "custId": 11,
+    "name": "Rahul Iyer",
+    "phone": "9345678901",
+    "email": "rahul.iyer@example.com",
+    "gender": "Male",
+    "dob": "09-12-1993"
+  },
+  {
+    "custId": 12,
+    "name": "Divya Patel",
+    "phone": "9234567890",
+    "email": "divya.patel@example.com",
+    "gender": "Female",
+    "dob": "11-10-1995"
+  },
+  {
+    "custId": 13,
+    "name": "Arjun Desai",
+    "phone": "9123456790",
+    "email": "arjun.desai@example.com",
+    "gender": "Male",
+    "dob": "02-02-2001"
+  },
+  {
+    "custId": 14,
+    "name": "Meera Choudhary",
+    "phone": "9012345678",
+    "email": "meera.choudhary@example.com",
+    "gender": "Female",
+    "dob": "16-05-1999"
+  },
+  {
+    "custId": 15,
+    "name": "Siddharth Bhatia",
+    "phone": "9988776655",
+    "email": "siddharth.bhatia@example.com",
+    "gender": "Male",
+    "dob": "22-07-1994"
+  },
+  {
+    "custId": 16,
+    "name": "Kavya Saxena",
+    "phone": "9876123450",
+    "email": "kavya.saxena@example.com",
+    "gender": "Female",
+    "dob": "19-01-2002"
+  },
+  {
+    "custId": 17,
+    "name": "Manish Kulkarni",
+    "phone": "9765432109",
+    "email": "manish.kulkarni@example.com",
+    "gender": "Male",
+    "dob": "28-03-1990"
+  },
+  {
+    "custId": 18,
+    "name": "Ritika Pandey",
+    "phone": "9654321098",
+    "email": "ritika.pandey@example.com",
+    "gender": "Female",
+    "dob": "07-09-1997"
+  },
+  {
+    "custId": 19,
+    "name": "Harsh Vardhan",
+    "phone": "9543210987",
+    "email": "harsh.vardhan@example.com",
+    "gender": "Male",
+    "dob": "04-11-1992"
+  },
+  {
+    "custId": 20,
+    "name": "Ishita Agarwal",
+    "phone": "9432109876",
+    "email": "ishita.agarwal@example.com",
+    "gender": "Female",
+    "dob": "15-08-2000"
+  }
+]

@@ -4,14 +4,18 @@ import com.web.pharma.customer.entities.Customer;
 import com.web.pharma.customer.mappers.CustomerMapper;
 import com.web.pharma.customer.models.CustomerDto;
 import com.web.pharma.customer.repos.CustomerRepository;
+import com.web.pharma.customer.utils.JsonFileReaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,8 +23,9 @@ import java.util.Optional;
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository;
-    private CustomerMapper customerMapper;
+    private final CustomerRepository customerRepository;
+    private final CustomerMapper customerMapper;
+    private final JsonFileReaderUtil jsonFileReaderUtil;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,6 +57,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    @Transactional
+    public Optional<CustomerDto> patchCustomer(int id, Map<String, Object> updates) {
+        return customerRepository.findById(id).map(entity -> {
+            updates.forEach((field, value) -> {
+                switch (field) {
+                    case "name" -> entity.setName((String) value);
+                    case "phone" -> entity.setPhone((String) value);
+                    case "email" -> entity.setEmail((String) value);
+                    case "gender" -> entity.setGender((String) value);
+                    case "dob" -> entity.setDob((String) value);
+                    default -> throw new IllegalArgumentException("Field '" + field + "' is not updatable");
+                }
+            });
+            //entity.setUpdatedAt(LocalDateTime.now());
+            Customer saved = customerRepository.save(entity);
+            return customerMapper.toDto(saved);
+        });
+    }
+
+
+    @Override
     public void delete(int id) {
         log.info("Deleting customer id={}", id);
         customerRepository.deleteById(id);
@@ -68,5 +94,18 @@ public class CustomerServiceImpl implements CustomerService {
     public Page<CustomerDto> search(String q, Pageable pageable) {
         log.debug("Searching customers q={}", q);
         return customerRepository.search(q, pageable).map(customerMapper::toDto);
+    }
+
+    @Override
+    public int saveCustomer(MultipartFile file) {
+        try {
+            List<CustomerDto> medicines =
+                    jsonFileReaderUtil.readListFromJson(file.getInputStream(), CustomerDto.class);
+            var entities = medicines.stream().map(customerMapper::toEntity).toList();
+            customerRepository.saveAll(entities);
+            return entities.size();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

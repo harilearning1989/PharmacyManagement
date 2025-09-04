@@ -19,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,7 +33,7 @@ import java.util.Optional;
 public class CustomerRestController {
 
 
-    private CustomerService customerService;
+    private final CustomerService customerService;
 
     @Operation(
             summary = "Create customer",
@@ -84,6 +86,45 @@ public class CustomerRestController {
                     .body("Failed to update customer: " + e.getMessage());
         }
     }
+
+    @Operation(
+            summary = "Partially update a customer",
+            description = "Update one or more fields of an existing customer without replacing the entire resource."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer updated successfully",
+                    content = @Content(schema = @Schema(implementation = CustomerDto.class))),
+            @ApiResponse(responseCode = "404", description = "Customer not found",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Customer not found"))),
+            @ApiResponse(responseCode = "400", description = "Invalid request body",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Invalid field provided"))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(hidden = true)))
+    })
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> patchCustomer(@PathVariable int id, @RequestBody Map<String, Object> updates) {
+        log.info("Partially updating customer id={} with fields={}", id, updates.keySet());
+        try {
+            Optional<CustomerDto> updated = customerService.patchCustomer(id, updates);
+            if (updated.isPresent()) {
+                log.info("Customer updated successfully id={}", id);
+                return ResponseEntity.ok(updated.get());
+            } else {
+                log.warn("Customer not found with id={}", id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found");
+            }
+        } catch (IllegalArgumentException e) {
+            log.error("Invalid patch request for id={}", id, e);
+            return ResponseEntity.badRequest().body("Invalid request: " + e.getMessage());
+        } catch (Exception e) {
+            log.error("Failed to patch customer id={}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update customer: " + e.getMessage());
+        }
+    }
+
 
     @Operation(
             summary = "Get customer by ID",
@@ -207,6 +248,43 @@ public class CustomerRestController {
             log.error("Failed to fetch customers", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to fetch customers: " + e.getMessage());
+        }
+    }
+
+    @Operation(
+            summary = "Bulk import medicines",
+            description = "Upload a JSON file containing a list of medicines . " +
+                    "The API parses the file and saves all records into the database."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Medicines imported successfully",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Inserted 1000 medicines successfully"))),
+            @ApiResponse(responseCode = "400", description = "Invalid input or parsing error",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Failed to import medicines: invalid JSON structure"))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(hidden = true)))
+    })
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Upload JSON file with medicines. " +
+                    "The JSON must contain a root node `medical_store_inventory` holding an array of medicine records.",
+            required = true,
+            content = @Content(
+                    mediaType = "multipart/form-data",
+                    schema = @Schema(type = "string", format = "binary")
+            )
+    )
+    @PostMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> bulkCreate(@RequestParam("file") MultipartFile file) {
+        log.info("bulk Create file {}", file.getOriginalFilename());
+        try {
+            int size = customerService.saveCustomer(file);
+            log.info("bulk Create file {} size {}", file.getOriginalFilename(), size);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Inserted " + size + " customers successfully");
+        } catch (Exception e) {
+            log.error("Failed to upload customer file {}", file.getOriginalFilename(), e);
+            return ResponseEntity.badRequest().body("Failed to import customer: " + e.getMessage());
         }
     }
 }

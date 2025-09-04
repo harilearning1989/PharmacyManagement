@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Component
 public class CustomerMapperImpl implements CustomerMapper {
@@ -21,14 +22,17 @@ public class CustomerMapperImpl implements CustomerMapper {
                 .email(dto.email())
                 .phone(dto.phone())
                 .dob(dobLocalDate)
-                .createdBy(1)
-                .updatedBy(dto.updatedBy());
+                .createdBy(41)
+                .updatedBy(41);
 
         return builder.build();
     }
 
     @Override
     public CustomerDto toDto(Customer entity) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy h:mm:ss a", Locale.ENGLISH);
+        String createdAt = entity.getCreatedAt().format(formatter);
+        String updatedAt = entity.getUpdatedAt().format(formatter);
         return new CustomerDto(
                 entity.getId(),
                 entity.getCustId(),
@@ -39,9 +43,8 @@ public class CustomerMapperImpl implements CustomerMapper {
                 entity.getDob().toString(),
                 entity.getCreatedBy(),
                 entity.getUpdatedBy(),
-                entity.getCreatedAt().toString(),
-                entity.getUpdatedAt().toString()
-
+                createdAt,
+                updatedAt
         );
     }
 
