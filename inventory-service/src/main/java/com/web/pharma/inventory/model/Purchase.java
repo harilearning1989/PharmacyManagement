@@ -3,6 +3,7 @@ package com.web.pharma.inventory.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,9 +16,7 @@ public class Purchase {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional=false)
-    @JoinColumn(name="supplier_id")
-    private Supplier supplier;
+
 
     private LocalDate invoiceDate;
     private String invoiceNo;

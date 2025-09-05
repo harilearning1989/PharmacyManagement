@@ -1,10 +1,10 @@
-package com.web.pharma.customer.services;
+package com.web.pharma.supplier.services;
 
-import com.web.pharma.customer.entities.Customer;
-import com.web.pharma.customer.mappers.CustomerMapper;
-import com.web.pharma.customer.models.CustomerDto;
-import com.web.pharma.customer.repos.CustomerRepository;
-import com.web.pharma.customer.utils.JsonFileReaderUtil;
+import com.web.pharma.supplier.entities.Supplier;
+import com.web.pharma.supplier.mappers.SupplierMapper;
+import com.web.pharma.supplier.models.SupplierDto;
+import com.web.pharma.supplier.repos.SupplierRepository;
+import com.web.pharma.supplier.utils.JsonFileReaderUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,61 +21,53 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CustomerServiceImpl implements CustomerService {
+public class SupplierServiceImpl implements SupplierService {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-    private final CustomerRepository customerRepository;
-    private final CustomerMapper customerMapper;
+    private final SupplierRepository customerRepository;
+    private final SupplierMapper customerMapper;
     private final JsonFileReaderUtil jsonFileReaderUtil;
 
     @Override
     @Transactional(readOnly = true)
-    public List<CustomerDto> getAllCustomers() {
-        log.debug("Listing all customers getAllCustomers");
+    public List<SupplierDto> getAllSuppliers() {
+        log.debug("Listing all customers getAllSuppliers");
         return customerRepository.findAll().stream().map(customerMapper::toDto).toList();
     }
 
     @Override
-    public CustomerDto create(CustomerDto dto) {
-        log.info("Creating customer with custId={}", dto.custId());
-        Customer saved = customerRepository.save(customerMapper.toEntity(dto));
+    public SupplierDto create(SupplierDto dto) {
+        log.info("Creating customer with custId={}", dto.supplierId());
+        Supplier saved = customerRepository.save(customerMapper.toEntity(dto));
         return customerMapper.toDto(saved);
     }
 
     @Override
-    public CustomerDto update(int id, CustomerDto dto) {
+    public SupplierDto update(int id, SupplierDto dto) {
         log.info("Updating customer id={}", id);
-        Customer existing = customerRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Customer not found id=" + id));
+        Supplier existing = customerRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Supplier not found id=" + id));
         existing.setName(dto.name());
         existing.setPhone(dto.phone());
         existing.setEmail(dto.email());
-        existing.setGender(dto.gender());
         //existing.setDob(dto.dob());
         existing.setUpdatedBy(dto.updatedBy());
-        Customer saved = customerRepository.save(existing);
+        Supplier saved = customerRepository.save(existing);
         return customerMapper.toDto(saved);
     }
 
     @Override
     @Transactional
-    public Optional<CustomerDto> patchCustomer(int id, Map<String, Object> updates) {
+    public Optional<SupplierDto> patchSupplier(int id, Map<String, Object> updates) {
         return customerRepository.findById(id).map(entity -> {
             updates.forEach((field, value) -> {
                 switch (field) {
                     case "name" -> entity.setName((String) value);
                     case "phone" -> entity.setPhone((String) value);
                     case "email" -> entity.setEmail((String) value);
-                    case "gender" -> entity.setGender((String) value);
-                    case "dob" -> {
-                        LocalDate dobLocalDate = LocalDate.parse((String) value, formatter);
-                        entity.setDob(dobLocalDate);
-                    }
                     default -> throw new IllegalArgumentException("Field '" + field + "' is not updatable");
                 }
             });
-            Customer saved = customerRepository.save(entity);
+            Supplier saved = customerRepository.save(entity);
             return customerMapper.toDto(saved);
         });
     }
@@ -91,22 +81,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<CustomerDto> getById(int id) {
+    public Optional<SupplierDto> getById(int id) {
         return customerRepository.findById(id).map(customerMapper::toDto);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CustomerDto> search(String q, Pageable pageable) {
+    public Page<SupplierDto> search(String q, Pageable pageable) {
         log.debug("Searching customers q={}", q);
         return customerRepository.search(q, pageable).map(customerMapper::toDto);
     }
 
     @Override
-    public int saveCustomer(MultipartFile file) {
+    public int saveSupplier(MultipartFile file) {
         try {
-            List<CustomerDto> medicines =
-                    jsonFileReaderUtil.readListFromJson(file.getInputStream(), CustomerDto.class);
+            List<SupplierDto> medicines =
+                    jsonFileReaderUtil.readListFromJson(file.getInputStream(), SupplierDto.class);
             var entities = medicines.stream().map(customerMapper::toEntity).toList();
             customerRepository.saveAll(entities);
             return entities.size();

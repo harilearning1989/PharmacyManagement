@@ -8,7 +8,10 @@ import com.web.pharma.inventory.model.InventoryBatch;
 import com.web.pharma.inventory.model.InventoryTransaction;
 import com.web.pharma.inventory.model.Purchase;
 import com.web.pharma.inventory.model.PurchaseItem;
-import com.web.pharma.inventory.repository.*;
+import com.web.pharma.inventory.repository.InventoryBatchRepository;
+import com.web.pharma.inventory.repository.InventoryTransactionRepository;
+import com.web.pharma.inventory.repository.MedicineRepository;
+import com.web.pharma.inventory.repository.PurchaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +28,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     private static final Logger log = LoggerFactory.getLogger(PurchaseServiceImpl.class);
 
     private final PurchaseRepository purchaseRepository;
-    private final SupplierRepository supplierRepository;
     private final MedicineRepository medicineRepository;
     private final InventoryBatchRepository batchRepository;
     private final InventoryTransactionRepository txnRepository;
@@ -33,9 +35,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Transactional
     public Long recordPurchase(PurchaseDto dto) {
         log.info("Recording purchase invoice={}", dto.invoiceNo());
-        var supplier = supplierRepository.findById(dto.supplierId()).orElseThrow(() -> new ResourceNotFoundException("Supplier not found: " + dto.supplierId()));
         Purchase p = new Purchase();
-        p.setSupplier(supplier);
         p.setInvoiceDate(dto.invoiceDate());
         p.setInvoiceNo(dto.invoiceNo());
 

@@ -1,4 +1,4 @@
-package com.web.pharma.inventory.model;
+package com.web.pharma.supplier.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +16,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ADDRESS_SEQ_GEN")
     @SequenceGenerator(name = "ADDRESS_SEQ_GEN", sequenceName = "ADDRESS_SEQ", allocationSize = 1)
     @Column(name = "ID", nullable = false, unique = true, updatable = false)
-    private Long id;
+    private int id;
 
     @Column(name = "FATHER_NAME")
     private String fatherName;

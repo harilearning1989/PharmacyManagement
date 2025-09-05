@@ -2,7 +2,6 @@ package com.web.pharma.inventory.mapper;
 
 import com.web.pharma.inventory.dto.MedicineDto;
 import com.web.pharma.inventory.model.Medicine;
-import com.web.pharma.inventory.model.Supplier;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -32,11 +31,6 @@ public class MedicineMapperImpl implements MedicineMapper {
             builder.totalValue(dto.unitPrice().multiply(BigDecimal.valueOf(dto.quantity())));
         } else {
             builder.totalValue(BigDecimal.ZERO);
-        }
-
-        // ✅ Set supplier only by ID (no need to fetch)
-        if (dto.supplierId() != null) {
-            builder.supplier(Supplier.builder().id(dto.supplierId()).build());
         }
 
         return builder.build();
