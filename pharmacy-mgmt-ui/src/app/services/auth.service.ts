@@ -13,7 +13,7 @@ export interface LoginResponse {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = environment.apiUrl;
+  private baseUrl = 'http://localhost:8081';//environment.apiUrl;
   private storageKey = 'pharmacy.auth';
 
   constructor(private http: HttpClient) {}

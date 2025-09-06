@@ -10,7 +10,8 @@ import {environment} from "../../environments/environment";
 export class MedicineService {
 
   //private baseUrl = '/api/medicines'; // adjust according to backend
-  private baseUrl = environment.apiUrl;
+  //private baseUrl = environment.apiUrl;
+  private baseUrl = 'http://localhost:8081';//environment.apiUrl;
 
   constructor(private http: HttpClient) {
   }

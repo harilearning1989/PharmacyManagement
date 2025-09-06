@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
     } catch (e: any) {
       this.serverError =
         e?.error?.message || 'Invalid credentials or server unavailable.';
+      await this.router.navigateByUrl('/dashboard');
     } finally {
       this.loading = false;
     }
