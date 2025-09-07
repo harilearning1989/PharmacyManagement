@@ -37,3 +37,10 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+    archiveBaseName.set("eureka-server")
+    archiveVersion.set("1.0")
+    archiveClassifier.set("") // leave empty so no '-plain' suffix
+}
+

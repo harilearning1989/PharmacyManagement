@@ -4,6 +4,7 @@ build/
 gradle/
 .DS_Store
 target/
+*.jar
 
 # Node dependencies
 /node_modules
