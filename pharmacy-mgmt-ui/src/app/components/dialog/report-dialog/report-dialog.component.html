@@ -1,1 +1,127 @@
-<p>report-dialog works!</p>
+<div class="modal fade" id="reportDialog" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Report Management</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs nav-fill">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab==='register'" (click)="activeTab='register'">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab==='update'" (click)="activeTab='update'">Update</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeTab==='list'" (click)="activeTab='list'">List</a>
+        </li>
+      </ul>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- Register Tab -->
+        <div *ngIf="activeTab==='register'">
+          <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input class="form-control" formControlName="name"/>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">DOB</label>
+                <input type="date" class="form-control" formControlName="dob"/>
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-6">
+                <label class="form-label">Gender</label>
+                <select class="form-control" formControlName="gender">
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" formControlName="email"/>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Phone</label>
+              <input class="form-control" formControlName="phone"/>
+            </div>
+
+            <button class="btn btn-primary mt-2" type="submit">Register</button>
+          </form>
+        </div>
+
+        <!-- Update Tab -->
+        <div *ngIf="activeTab==='update'">
+          <form [formGroup]="updateForm" (ngSubmit)="submitUpdate()">
+            <div class="mb-2">
+              <label class="form-label">Customer ID</label>
+              <input class="form-control" formControlName="customerId"/>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Name</label>
+              <input class="form-control" formControlName="name"/>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Email</label>
+              <input class="form-control" formControlName="email"/>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Phone</label>
+              <input class="form-control" formControlName="phone"/>
+            </div>
+            <button class="btn btn-success mt-2" type="submit">Update</button>
+          </form>
+        </div>
+
+        <!-- List Tab -->
+        <div *ngIf="activeTab==='list'">
+          <div *ngIf="loadingList" class="text-center my-3">
+            <div class="spinner-border text-primary"></div>
+          </div>
+
+          <div class="table-responsive" style="max-height: 300px; overflow-y:auto;" *ngIf="!loadingList">
+            <table class="table table-bordered table-sm text-center">
+              <thead class="table-primary sticky-top">
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>DOB</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Email</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of customers">
+                <td>{{c.id}}</td>
+                <td>{{c.name}}</td>
+                <td>{{c.dob}}</td>
+                <td>{{c.gender}}</td>
+                <td>{{c.phone}}</td>
+                <td>{{c.email}}</td>
+              </tr>
+              <tr *ngIf="customers.length === 0">
+                <td colspan="6" class="text-muted">No customers found</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

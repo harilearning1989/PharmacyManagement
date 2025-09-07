@@ -1,0 +1,11 @@
+.modal-content {
+  border-radius: 12px;
+}
+.nav-tabs .nav-link {
+  cursor: pointer;   /* applies to ALL tabs */
+}
+.nav-tabs .nav-link.active {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}

@@ -22,11 +22,16 @@
         <div class="card-body d-flex flex-column">
           <h5 class="card-title">Actions</h5>
           <div class="d-grid gap-2">
-            <button class="btn btn-outline-primary">Reports</button>
-            <button class="btn btn-outline-success">Loyalty</button>
-            <button class="btn btn-outline-secondary">Add Medicine</button>
+            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportDialog">Reports
+              Details
+            </button>
+            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loyaltyDialog">Loyalty
+            </button>
+            <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#medicineDialog">
+              Medicine Details
+            </button>
             <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#supplierDialog">
-              Add Supplier
+              Supplier Details
             </button>
             <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#customerDialog">
               Customer Details
@@ -41,3 +46,5 @@
 <!-- Customer Modal -->
 <app-customer-dialog></app-customer-dialog>
 <app-supplier-dialog></app-supplier-dialog>
+<app-medicine-dialog></app-medicine-dialog>
+<app-report-dialog></app-report-dialog>

@@ -29,7 +29,9 @@ import { ReportDialogComponent } from './components/dialog/report-dialog/report-
   providers: [],
   exports: [
     CustomerDialogComponent,
-    SupplierDialogComponent
+    SupplierDialogComponent,
+    MedicineDialogComponent,
+    ReportDialogComponent
   ],
   bootstrap: [AppComponent]
 })
