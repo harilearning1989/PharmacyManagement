@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -248,6 +249,48 @@ public class CustomerRestController {
             log.error("Failed to fetch customers", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to fetch customers: " + e.getMessage());
+        }
+    }
+
+    @Operation(
+            summary = "Search customer by phone number",
+            description = "Retrieve a customer using their phone number (must be a valid Indian mobile number)."
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Customer retrieved successfully",
+                    content = @Content(schema = @Schema(implementation = CustomerDto.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid phone number format",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Phone number must be a valid 10-digit Indian mobile number"))),
+            @ApiResponse(responseCode = "404", description = "Customer not found",
+                    content = @Content(schema = @Schema(implementation = String.class),
+                            examples = @ExampleObject(value = "Customer not found with phone: 9876543210"))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(schema = @Schema(hidden = true)))
+    })
+    @GetMapping(value = "/search/by-phone", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getByPhone(
+            @RequestParam
+            @Pattern(regexp = "^[6-9][0-9]{9}$", message = "Phone number must be a valid 10-digit Indian mobile number")
+            String phone
+    ) {
+        log.info("Searching customer by phone={}", phone);
+        try {
+            Optional<CustomerDto> customerOpt = customerService.findByPhone(phone);
+
+            if (customerOpt.isPresent()) {
+                log.info("Customer found with phone={}", phone);
+                return ResponseEntity.ok(customerOpt.get());
+            } else {
+                log.warn("No customer found with phone={}", phone);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Customer not found with phone: " + phone);
+            }
+
+        } catch (Exception e) {
+            log.error("Failed to fetch customer by phone={}", phone, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to fetch customer: " + e.getMessage());
         }
     }
 

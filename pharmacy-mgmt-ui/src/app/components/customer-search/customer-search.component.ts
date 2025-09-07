@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {CustomerService} from "../../services/customer.service";
+import {Customer} from "../../models/customer";
 
 @Component({
   selector: 'app-customer-search',
@@ -12,8 +14,9 @@ export class CustomerSearchComponent implements OnInit {
   }
 
   customerForm: FormGroup;
+  errorMessage: string = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private customerService: CustomerService) {
     this.customerForm = this.fb.group({
       phone: [''],
       name: [''],
@@ -25,23 +28,32 @@ export class CustomerSearchComponent implements OnInit {
 
   searchCustomer() {
     const phone = this.customerForm.get('phone')?.value;
+    this.errorMessage = '';
 
-    // TODO: Replace with real API
-    if (phone === '9494968081') {
-      this.customerForm.patchValue({
-        name: 'Hari Reddy',
-        dob: '1995-08-01',
-        gender: 'Male',
-        email: 'hari.reddy@example.com'
-      });
-    } else {
-      this.customerForm.patchValue({
-        name: '',
-        dob: '',
-        gender: '',
-        email: ''
-      });
+    if (!phone) {
+      this.errorMessage = 'Please enter a phone number';
+      return;
     }
+
+    this.customerService.searchByPhone(phone).subscribe({
+      next: (customer: Customer) => {
+        this.customerForm.patchValue({
+          name: customer.name,
+          dob: customer.dob,
+          gender: customer.gender,
+          email: customer.email
+        });
+      },
+      error: (err) => {
+        this.customerForm.patchValue({
+          name: '',
+          dob: '',
+          gender: '',
+          email: ''
+        });
+        this.errorMessage = err.message;
+      }
+    });
   }
 
 }

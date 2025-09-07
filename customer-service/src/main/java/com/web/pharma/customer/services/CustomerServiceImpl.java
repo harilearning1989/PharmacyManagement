@@ -82,6 +82,12 @@ public class CustomerServiceImpl implements CustomerService {
         });
     }
 
+    @Override
+    public Optional<CustomerDto> findByPhone(String phone) {
+        Customer customer = customerRepository.findByPhone(phone);
+        return Optional.ofNullable(customerMapper.toDto(customer));
+    }
+
 
     @Override
     public void delete(int id) {

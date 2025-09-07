@@ -11,13 +11,20 @@ import java.util.Optional;
 
 public interface CustomerService {
     List<CustomerDto> getAllCustomers();
+
     CustomerDto create(CustomerDto dto);
+
     CustomerDto update(int id, CustomerDto dto);
+
     void delete(int id);
+
     Optional<CustomerDto> getById(int id);
+
     Page<CustomerDto> search(String q, Pageable pageable);
 
     int saveCustomer(MultipartFile file);
 
     Optional<CustomerDto> patchCustomer(int id, Map<String, Object> updates);
+
+    Optional<CustomerDto> findByPhone(String phone);
 }

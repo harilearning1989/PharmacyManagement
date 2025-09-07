@@ -1,8 +1,9 @@
+<!--
 <div class="card shadow-sm h-100 border-primary" style="min-height: 300px;">
   <div class="card-body">
     <h5 class="card-title">Customer Search</h5>
 
-    <!-- Phone Search -->
+    &lt;!&ndash; Phone Search &ndash;&gt;
     <form (ngSubmit)="searchCustomer()" [formGroup]="customerForm" class="mb-3">
       <div class="input-group">
         <input
@@ -17,7 +18,7 @@
       </div>
     </form>
 
-    <!-- Customer Details -->
+    &lt;!&ndash; Customer Details &ndash;&gt;
     <form [formGroup]="customerForm" class="row g-2">
       <div class="col-12 d-flex align-items-center">
         <label class="col-4 col-form-label">Name</label>
@@ -49,3 +50,165 @@
     </form>
   </div>
 </div>
+-->
+<!--
+<div class="container mt-3 border-primary" >
+  <h5 class="card-title">Customer Search</h5>
+
+  <form [formGroup]="customerForm" class="row g-2">
+    &lt;!&ndash; Phone Input &ndash;&gt;
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="phone"
+        class="form-control"
+        placeholder="Enter Customer phone number"
+      />
+      <button class="btn btn-primary" (click)="searchCustomer()">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+
+    &lt;!&ndash; Error Message &ndash;&gt;
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    &lt;!&ndash; Customer Details &ndash;&gt;
+    <div class="mt-4">
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Name</label>
+        <div class="col-8">
+          <input type="text" formControlName="name" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">DOB</label>
+        <div class="col-8">
+          <input type="text" formControlName="dob" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Gender</label>
+        <div class="col-8">
+          <input type="text" formControlName="gender" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Email</label>
+        <div class="col-8">
+          <input type="text" formControlName="email" class="form-control" readonly />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>-->
+<!--
+<div class="container mt-3 border border-2 border-primary rounded p-3" style="min-height: 300px;">
+  <h5 class="card-title">Customer Search</h5>
+
+  <form [formGroup]="customerForm" class="row g-2">
+    &lt;!&ndash; Phone Input &ndash;&gt;
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="phone"
+        class="form-control"
+        placeholder="Enter Customer phone number"
+      />
+      <button class="btn btn-primary" type="button" (click)="searchCustomer()">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+
+    &lt;!&ndash; Error Message &ndash;&gt;
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+
+    &lt;!&ndash; Customer Details &ndash;&gt;
+    <div class="mt-4">
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Name</label>
+        <div class="col-8">
+          <input type="text" formControlName="name" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">DOB</label>
+        <div class="col-8">
+          <input type="text" formControlName="dob" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Gender</label>
+        <div class="col-8">
+          <input type="text" formControlName="gender" class="form-control" readonly />
+        </div>
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="col-4 col-form-label">Email</label>
+        <div class="col-8">
+          <input type="text" formControlName="email" class="form-control" readonly />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>-->
+
+<div class="card shadow-sm h-100 border-primary" style="min-height: 300px;">
+  <div class="card-body">
+    <h5 class="card-title">Customer Search</h5>
+
+    <!-- Customer Phone Search -->
+    <form (ngSubmit)="searchCustomer()" [formGroup]="customerForm" class="mb-3">
+      <div class="input-group">
+        <input
+          type="text"
+          formControlName="phone"
+          class="form-control"
+          placeholder="Enter customer phone number"
+        />
+        <button class="btn btn-primary" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </form>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Customer Details -->
+    <form [formGroup]="customerForm" class="row g-2">
+      <div class="col-12 d-flex align-items-center">
+        <label class="form-label me-3" style="width: 120px;">Name</label>
+        <input type="text" formControlName="name" class="form-control" readonly />
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="form-label me-3" style="width: 120px;">DOB</label>
+        <input type="text" formControlName="dob" class="form-control" readonly />
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="form-label me-3" style="width: 120px;">Gender</label>
+        <input type="text" formControlName="gender" class="form-control" readonly />
+      </div>
+
+      <div class="col-12 d-flex align-items-center">
+        <label class="form-label me-3" style="width: 120px;">Email</label>
+        <input type="text" formControlName="email" class="form-control" readonly />
+      </div>
+    </form>
+  </div>
+</div>
+
+

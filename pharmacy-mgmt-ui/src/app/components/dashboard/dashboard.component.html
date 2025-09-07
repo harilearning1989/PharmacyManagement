@@ -25,11 +25,19 @@
             <button class="btn btn-outline-primary">Reports</button>
             <button class="btn btn-outline-success">Loyalty</button>
             <button class="btn btn-outline-secondary">Add Medicine</button>
-            <button class="btn btn-outline-warning">Add Supplier</button>
-            <button class="btn btn-outline-info">Register Customer</button>
+            <button class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#supplierDialog">
+              Add Supplier
+            </button>
+            <button class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#customerDialog">
+              Customer Details
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Customer Modal -->
+<app-customer-dialog></app-customer-dialog>
+<app-supplier-dialog></app-supplier-dialog>

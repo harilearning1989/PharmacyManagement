@@ -19,4 +19,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
            or cast(c.custId as string) like concat('%', :q, '%'))
     """)
     Page<Customer> search(@Param("q") String q, Pageable pageable);
+
+    Customer findByPhone(String phone);
 }

@@ -8,6 +8,7 @@ import {CustomerSearchModule} from "../customer-search/customer-search.module";
 import {DoctorSearchModule} from "../doctor-search/doctor-search.module";
 import {MedicineSearchModule} from "../medicine-search/medicine-search.module";
 import {SupplierSearchModule} from "../supplier-search/supplier-search.module";
+import {AppModule} from "../../app.module";
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import {SupplierSearchModule} from "../supplier-search/supplier-search.module";
     CustomerSearchModule,
     DoctorSearchModule,
     MedicineSearchModule,
-    SupplierSearchModule
+    SupplierSearchModule,
+    AppModule
   ]
 })
 export class DashboardModule {
